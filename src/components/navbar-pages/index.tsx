@@ -68,17 +68,17 @@ export const NavBarHeaderPages = () => {
       <ContextMenuHeader>
         <header
           className={clsx(
-            'flex z-10 sticky shadow-lg transition-all  duration-500 top-4 min-h-12 mx-8 rounded-lg border bg-muted/20 items-center justify-between px-4 backdrop-blur-lg',
-            { ['-translate-y-0 opacity-1 mb-4']: showNavBar },
+            'flex z-10 sticky shadow-md transition-all mb-4 delay-100 duration-500 top-4 min-h-12 mx-8 rounded-lg border bg-muted/20  items-center justify-between px-4 backdrop-blur-lg',
+            { ['-translate-y-0 opacity-1 ']: showNavBar },
             {
-              ['-translate-y-full opacity-0 w-[95%] !min-h-0 overflow-hidden sr-only']:
+              ['-translate-y-full opacity-0 w-[95%] min-h-0 overflow-hidden sr-only']:
                 !showNavBar,
             },
           )}
         >
           <div className="flex items-center gap-4 h-full">
             <h1 className=" font-bold capitalize text-sm text-muted-foreground">
-              {pathname.split('/').pop()}
+              {pathname === '/' ? 'Dashboard' : pathname.replace('/', '')}
             </h1>
           </div>
 
@@ -122,7 +122,7 @@ export const NavBarHeaderPages = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
-                  variant="secondary"
+                  variant="outline"
                   size="icon"
                   className="ml-auto h-8 w-8 relative"
                 >
@@ -155,7 +155,7 @@ export const NavBarHeaderPages = () => {
                 <TooltipTrigger asChild>
                   <Button
                     size="icon"
-                    variant="secondary"
+                    variant="outline"
                     className={clsx(' size-8')}
                     onClick={() => setShowNavBar(!showNavBar)}
                   >

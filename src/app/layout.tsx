@@ -20,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={cn([''], inter.className)}>
+    <html lang="en" className="">
+      <body className={cn(['transition-all duration-500'], inter.className)}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

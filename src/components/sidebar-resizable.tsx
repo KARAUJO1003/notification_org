@@ -6,7 +6,7 @@ import {
   ArrowUp,
   ChevronLeft,
   Earth,
-  FolderTree,
+  FolderClosed,
   LucideIcon,
   Network,
 } from 'lucide-react'
@@ -124,7 +124,7 @@ export function SidebarResizable({ children }: { children: React.ReactNode }) {
                       }),
                     )}
                   >
-                    <FolderTree className="min-w-4 min-h-4 size-4" />
+                    <FolderClosed className="min-w-4 min-h-4 size-4" />
 
                     <span
                       className={clsx({
