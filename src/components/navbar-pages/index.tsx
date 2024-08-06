@@ -33,6 +33,7 @@ import { Separator } from '../ui/separator'
 import { Badge } from '../ui/badge'
 import { Switch } from '../ui/switch'
 import { useTheme } from 'next-themes'
+import { usePathname } from 'next/navigation'
 
 const ContextMenuHeader = ({ children }: { children: ReactNode }) => {
   const { setShowNavBar, showNavBar } = useShowNavBar()
@@ -60,6 +61,7 @@ const ContextMenuHeader = ({ children }: { children: ReactNode }) => {
 export const NavBarHeaderPages = () => {
   const { setShowNavBar, showNavBar } = useShowNavBar()
   const { theme, setTheme } = useTheme()
+  const pathname = usePathname()
 
   return (
     <>
@@ -75,7 +77,9 @@ export const NavBarHeaderPages = () => {
           )}
         >
           <div className="flex items-center gap-4 h-full">
-            <h1 className="text-foreground font-bold">Organization</h1>
+            <h1 className=" font-bold capitalize text-sm text-muted-foreground">
+              {pathname.split('/').pop()}
+            </h1>
           </div>
 
           <div className="flex items-center gap-2">
@@ -110,6 +114,11 @@ export const NavBarHeaderPages = () => {
               </DropdownMenuContent>
             </DropdownMenu>
             <Separator orientation="vertical" className="w-0.5 h-8" />
+            <Switch
+              onCheckedChange={() =>
+                theme === 'dark' ? setTheme('light') : setTheme('dark')
+              }
+            />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -158,11 +167,6 @@ export const NavBarHeaderPages = () => {
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
-            <Switch
-              onCheckedChange={(checked) =>
-                theme === 'dark' ? setTheme('light') : setTheme('dark')
-              }
-            />
           </div>
         </header>
       </ContextMenuHeader>

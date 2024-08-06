@@ -7,7 +7,7 @@ export function NotificationCard() {
     <div className="flex flex-col gap-2 p-4 max-w-sm">
       <button
         className={cn(
-          'flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all bg-background/60 backdrop-blur-lg hover:bg-accent',
+          'flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all focus-within:ring-2 focus-within:ring-offset-4 ring-emerald-500 ring-offset-muted bg-background/60 backdrop-blur-lg hover:bg-accent',
         )}
       >
         <div className="flex w-full flex-col gap-1 ">

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable'
 import { Button, buttonVariants } from './ui/button'
 import {
+  ArrowUp,
   ChevronLeft,
   Earth,
   FolderTree,
@@ -30,33 +31,11 @@ interface INavItem {
   group?: INavItem[]
 }
 
-// const navItems: INavItem = [
-//   {
-//     name: 'Dashboard',
-//     icon: LayoutDashboardIcon,
-//     path: '/',
-//     group: [{ name: 'Dashboard', path: '/', icon: LayoutDashboardIcon }],
-//   },
-//   {
-//     name: 'Documents',
-//     icon: FolderTree,
-//     path: '/about-me',
-//     group: [{ name: 'Documents', path: '/about-me', icon: FolderTree }],
-//   },
-//   {
-//     name: 'Organization',
-//     icon: ListTree,
-//     path: '/contact',
-//     group: [{ name: 'Organization', path: '/contact', icon: ListTree }],
-//   },
-// ]
-
 export function SidebarResizable({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false)
   const pathname = usePathname()
 
   const isActiveLink = (path: string) => pathname === path
-  console.log(isActiveLink('/documents'))
 
   return (
     <ResizablePanelGroup
@@ -64,13 +43,13 @@ export function SidebarResizable({ children }: { children: React.ReactNode }) {
       className="h-screen w-full flex divide-x"
     >
       <ResizablePanel
-        minSize={collapsed ? 4 : 14}
-        maxSize={collapsed ? 4 : 14}
-        defaultSize={collapsed ? 4 : 14}
+        minSize={collapsed ? 3.5 : 14}
+        maxSize={collapsed ? 3.5 : 14}
+        defaultSize={collapsed ? 3.5 : 14}
         className="h-full relative transition-all duration-300"
       >
         <aside className="flex flex-col justify-between h-screen">
-          <header className="flex px-4 border-b items-center w-full min-h-20">
+          <header className="flex px-2 border-b items-center w-full min-h-20">
             <Earth
               className={clsx(
                 'size-8 text-emerald-500 mx-auto transition-all flex min-w-8 min-h-8 duration-700',
@@ -96,9 +75,9 @@ export function SidebarResizable({ children }: { children: React.ReactNode }) {
             </div>
           </header>
           <ScrollArea className="h-screen">
-            <nav className="h-full w-full py-4">
+            <nav className="h-full w-full py-4 text-muted-foreground">
               <ul
-                className={clsx('min-h-full px-3 mx-auto flex flex-col gap-2')}
+                className={clsx('min-h-full px-2 mx-auto flex flex-col gap-2')}
               >
                 <li className="flex items-center w-full gap-1 mx-auto">
                   <Link
@@ -107,7 +86,7 @@ export function SidebarResizable({ children }: { children: React.ReactNode }) {
                       'px-3 !justify-start  gap-2 w-full transition-all duration-300',
                       {
                         '!h-8': collapsed,
-                        '!bg-emerald-500 text-black hover:text-black font-bold shadow-inner':
+                        '!bg-muted text-foreground hover:text-foreground font-bold shadow-inner':
                           isActiveLink('/'),
                       },
                       buttonVariants({
@@ -135,7 +114,7 @@ export function SidebarResizable({ children }: { children: React.ReactNode }) {
                       'px-3 !justify-start  gap-2 w-full transition-all duration-300',
                       {
                         '!h-8': collapsed,
-                        '!bg-emerald-500 text-black hover:text-black font-bold shadow-inner':
+                        '!bg-muted text-foreground hover:text-foreground font-bold shadow-inner':
                           isActiveLink('/documents'),
                       },
 
@@ -164,7 +143,7 @@ export function SidebarResizable({ children }: { children: React.ReactNode }) {
                       'px-3 !justify-start  gap-2 w-full transition-all duration-300',
                       {
                         '!h-8': collapsed,
-                        '!bg-emerald-500 text-black hover:text-black font-bold shadow-inner':
+                        '!bg-muted text-foreground hover:text-foreground font-bold shadow-inner':
                           isActiveLink('/organization'),
                       },
                       buttonVariants({
@@ -210,9 +189,9 @@ export function SidebarResizable({ children }: { children: React.ReactNode }) {
             <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
               <Button
                 size="sm"
-                className="w-full shadow-md shadow-emerald-400/50 bg-emerald-400"
+                className="w-full shadow-md font-bold text-black shadow-emerald-200/50 bg-emerald-300"
               >
-                Upgrade
+                Upgrade <ArrowUp className="size-4 ml-2" />
               </Button>
             </CardContent>
           </Card>

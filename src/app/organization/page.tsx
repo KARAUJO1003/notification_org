@@ -1,3 +1,4 @@
+'use client'
 import { DataTableDemo } from '@/components/data-table-demo'
 import { ChartDemo02 } from './components/charts/chart-02'
 import {
