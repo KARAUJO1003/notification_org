@@ -6,6 +6,7 @@ import { SidebarResizable } from '@/components/sidebar-resizable'
 import { NavBarHeaderPages } from '@/components/navbar-pages'
 import { ShowNavBarProvider } from '@/components/navbar-pages/useShowNavbar'
 import { cn } from '@/lib/utils'
+import { Toaster } from 'sonner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,13 +21,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="">
-      <body className={cn(['transition-all duration-500'], inter.className)}>
+    <html lang="en" className="transition-colors duration-700">
+      <body className={cn(['transition-colors duration-500'], inter.className)}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
-          disableTransitionOnChange
+          // disableTransitionOnChange
         >
           <SidebarResizable>
             <ShowNavBarProvider>
@@ -34,6 +35,7 @@ export default function RootLayout({
             </ShowNavBarProvider>
             {children}
           </SidebarResizable>
+          <Toaster theme="system" expand richColors />
         </ThemeProvider>
       </body>
     </html>

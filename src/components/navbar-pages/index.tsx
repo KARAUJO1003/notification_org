@@ -71,7 +71,7 @@ export const NavBarHeaderPages = () => {
             'flex z-10 sticky shadow-md transition-all mb-4 delay-100 duration-500 top-4 min-h-12 mx-8 rounded-lg border bg-muted/20  items-center justify-between px-4 backdrop-blur-lg',
             { ['-translate-y-0 opacity-1 ']: showNavBar },
             {
-              ['-translate-y-full opacity-0 w-[95%] min-h-0 overflow-hidden sr-only']:
+              ['-translate-y-full opacity-0 w-[95%] min-h-0 overflow-hidden hidden sr-only']:
                 !showNavBar,
             },
           )}
@@ -151,7 +151,7 @@ export const NavBarHeaderPages = () => {
             </DropdownMenu>
 
             <TooltipProvider>
-              <Tooltip>
+              <Tooltip delayDuration={100}>
                 <TooltipTrigger asChild>
                   <Button
                     size="icon"
@@ -162,31 +162,27 @@ export const NavBarHeaderPages = () => {
                     <PanelTopClose className="size-4" />
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>
-                  <p>Hidden navbar</p>
-                </TooltipContent>
+                <TooltipContent align="end">Esconder header</TooltipContent>
               </Tooltip>
             </TooltipProvider>
           </div>
         </header>
       </ContextMenuHeader>
       <TooltipProvider>
-        <Tooltip>
+        <Tooltip delayDuration={100}>
           <TooltipTrigger asChild>
             <Button
               size="icon"
-              variant="outline"
+              variant="ghost"
               className={clsx('fixed top-4 right-8 z-10 size-8', {
-                'opacity-0 hidden': showNavBar,
+                'opacity-0 sr-only delay-200': showNavBar,
               })}
               onClick={() => setShowNavBar(!showNavBar)}
             >
               <PanelTopOpen className="size-4" />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>
-            <p>Show navbar</p>
-          </TooltipContent>
+          <TooltipContent align="end">Mostrar header</TooltipContent>
         </Tooltip>
       </TooltipProvider>
     </>

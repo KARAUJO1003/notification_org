@@ -14,7 +14,7 @@ export default function Organization() {
     <main className=" flex flex-col min-h-screen px-8 py-4">
       <div className="flex items-center gap-2 justify-between">
         <Card
-          className="flex flex-col justify-around bg-muted/20"
+          className="flex flex-col w-full justify-around bg-muted/20"
           x-chunk="charts-01-chunk-3"
         >
           <CardHeader className="p-4 pb-0">
@@ -35,7 +35,7 @@ export default function Organization() {
           </CardContent>
         </Card>
         <Card
-          className="flex flex-col justify-around bg-muted/20"
+          className="flex  w-full flex-col justify-around bg-muted/20"
           x-chunk="charts-01-chunk-3"
         >
           <CardHeader className="p-4 pb-0">
@@ -56,7 +56,7 @@ export default function Organization() {
           </CardContent>
         </Card>
         <Card
-          className="flex flex-col justify-around bg-muted/20"
+          className="flex  w-full flex-col justify-around bg-muted/20"
           x-chunk="charts-01-chunk-3"
         >
           <CardHeader className="p-4 pb-0">

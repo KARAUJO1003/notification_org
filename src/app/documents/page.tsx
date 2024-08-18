@@ -1,10 +1,7 @@
 'use client'
-
 import { useRef, useState, useEffect } from 'react'
-import { jsPDF } from 'jspdf'
-import html2canvas from 'html2canvas'
 import { Button } from '@/components/ui/button'
-import { Download, ZoomIn, ZoomOut } from 'lucide-react'
+import { Download, Printer, ZoomIn, ZoomOut } from 'lucide-react'
 import {
   Table,
   TableBody,
@@ -14,6 +11,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import html2canvas from 'html2canvas'
+import jsPDF from 'jspdf'
+import { toast } from 'sonner'
 
 const invoices = [
   {
@@ -58,6 +58,102 @@ const invoices = [
     totalAmount: '$300.00',
     paymentMethod: 'Credit Card',
   },
+  {
+    invoice: 'INV007',
+    paymentStatus: 'Unpaid',
+    totalAmount: '$450.00',
+    paymentMethod: 'Credit Card',
+  },
+  {
+    invoice: 'INV007',
+    paymentStatus: 'Unpaid',
+    totalAmount: '$354600.00',
+    paymentMethod: 'Credit Card',
+  },
+  {
+    invoice: 'INV007',
+    paymentStatus: 'Unpaid',
+    totalAmount: '$654300.00',
+    paymentMethod: 'Credit Card',
+  },
+  {
+    invoice: 'INV065407',
+    paymentStatus: 'Unpaid',
+    totalAmount: '$645300654.00',
+    paymentMethod: 'Credit Card',
+  },
+  {
+    invoice: 'INV007',
+    paymentStatus: 'Unpaid',
+    totalAmount: '$6546300.00',
+    paymentMethod: 'Credit Card',
+  },
+  {
+    invoice: 'INV065407',
+    paymentStatus: 'Unpaid',
+    totalAmount: '$356600.00',
+    paymentMethod: 'Credit Card',
+  },
+  {
+    invoice: 'INV007',
+    paymentStatus: 'Unpaid',
+    totalAmount: '$300.00',
+    paymentMethod: 'Credit Card',
+  },
+  {
+    invoice: 'INV06544507',
+    paymentStatus: 'Unpai645654d',
+    totalAmount: '$300.645600',
+    paymentMethod: 'Credit Card',
+  },
+  {
+    invoice: 'INV007',
+    paymentStatus: 'Unpaid',
+    totalAmount: '$300.00',
+    paymentMethod: 'Credit Card',
+  },
+  {
+    invoice: 'INV645007',
+    paymentStatus: 'Unpaid',
+    totalAmount: '$6300.654600',
+    paymentMethod: 'Credit Card',
+  },
+  {
+    invoice: 'INV007',
+    paymentStatus: 'Unpaid',
+    totalAmount: '$6543645006546.00',
+    paymentMethod: 'Credit Card',
+  },
+  {
+    invoice: 'INV007',
+    paymentStatus: 'Unpaid',
+    totalAmount: '$300.00',
+    paymentMethod: 'Credit Card',
+  },
+  {
+    invoice: 'INV007',
+    paymentStatus: 'Unpaid',
+    totalAmount: '$300.00',
+    paymentMethod: 'Credit Card',
+  },
+  {
+    invoice: 'INV007',
+    paymentStatus: 'Unpaid',
+    totalAmount: '$300.00',
+    paymentMethod: 'Credit Card',
+  },
+  {
+    invoice: 'INV007',
+    paymentStatus: 'Unpaid',
+    totalAmount: '$300.00',
+    paymentMethod: 'Credit Card',
+  },
+  {
+    invoice: 'INV007',
+    paymentStatus: 'Unpaid',
+    totalAmount: '$300.00',
+    paymentMethod: 'Credit Card',
+  },
 ]
 
 export default function Documents() {
@@ -93,36 +189,112 @@ export default function Documents() {
     }
   }, [])
 
+  // const generatePDF = async () => {
+  //   if (pdfRef.current) {
+  //     const canvas = await html2canvas(pdfRef.current, {
+  //       useCORS: true,
+  //       allowTaint: true,
+  //       logging: true,
+  //       scale: 4,
+  //     })
+  //     const imgData = canvas.toDataURL('image/png')
+  //     const pdf = new jsPDF({
+  //       orientation: 'portrait',
+  //       unit: 'px',
+  //       format: [canvas.width, canvas.height],
+  //     })
+  //     pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height)
+  //     pdf.save('download.pdf')
+  //   }
+  // }
+
+  // const handleGeneratePDF = useReactToPrint({
+  //   content: () => pdfRef.current,
+  // })
+
+  // const pdfGenerator = useCallback(() => {
+  //   if (zoomLevel !== 1) return
+  //   handleGeneratePDF()
+  // }, [zoomLevel, handleGeneratePDF])
+
+  // useEffect(() => {
+  //   const handleKeyDown = (e: KeyboardEvent) => {
+  //     if (e.ctrlKey && e.key === 'p') {
+  //       e.preventDefault()
+  //       pdfGenerator()
+  //     }
+  //   }
+
+  //   window.addEventListener('keydown', handleKeyDown)
+  //   return () => {
+  //     window.removeEventListener('keydown', handleKeyDown)
+  //   }
+  // }, [pdfGenerator])
   const generatePDF = async () => {
     if (pdfRef.current) {
-      const canvas = await html2canvas(pdfRef.current, {
-        useCORS: true,
-        allowTaint: true,
-        logging: true,
-        scale: 4,
-      })
+      const canvas = await html2canvas(pdfRef.current, { scale: 2 })
       const imgData = canvas.toDataURL('image/png')
-      const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'px',
-        format: [canvas.width, canvas.height],
-      })
-      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height)
-      pdf.save('download.pdf')
+
+      const pdf = new jsPDF('p', 'mm', 'a4')
+      const imgWidth = 210 // Largura de uma página A4 em mm
+      const pageHeight = 297 // Altura de uma página A4 em mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width
+      let heightLeft = imgHeight
+
+      let position = 0
+
+      // Adiciona a primeira imagem
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
+      heightLeft -= pageHeight
+
+      // Adiciona páginas se o conteúdo exceder a altura de uma página
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight
+        pdf.addPage()
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
+        heightLeft -= pageHeight
+      }
+
+      return pdf
+    }
+    return null
+  }
+
+  const handleDownloadPDF = async () => {
+    const pdf = await generatePDF()
+    if (pdf) {
+      pdf.save('documento.pdf')
+      toast.success('PDF baixado com sucesso!')
+    }
+  }
+
+  const handlePrintPDF = async () => {
+    const pdf = await generatePDF()
+    if (pdf) {
+      pdf.autoPrint() // Aciona a caixa de diálogo de impressão
+      window.open(pdf.output('bloburl')) // Abre o PDF em uma nova janela
+      toast.success('Preparando a impressão...')
     }
   }
 
   return (
-    <main className="flex flex-col min-h-screen px-8 pt-5 pb-20">
+    <main className="flex flex-col min-h-screen py-4">
       <div className="flex w-3/5 h-auto z-10 border border-muted-foreground/20 self-center rounded-full fixed bottom-4 mx-auto backdrop-blur-md p-2 px-4">
         <Button
-          className="self-end rounded-full"
+          className="rounded-full mr-2"
+          onClick={handlePrintPDF}
           variant="default"
-          onClick={generatePDF}
         >
-          Exportar PDF <Download className="size-4 ml-2" />
+          Imprimir <Printer className="ml-2" />
         </Button>
-        <div className="ml-auto rounded-full border p-1 bg-muted">
+        <Button
+          className="rounded-full mr-2"
+          onClick={handleDownloadPDF}
+          variant="default"
+        >
+          Baixar PDF <Download className="ml-2" />
+        </Button>
+        <div className="ml-auto rounded-full flex items-center border p-1 bg-muted">
           <Button
             className="justify-center rounded-l-full size-7 px-5"
             variant="default"
@@ -130,6 +302,9 @@ export default function Documents() {
           >
             <ZoomOut className="size-4 mx-auto min-w-4 min-h-4" />
           </Button>
+          <span className="px-4 text-xs font-medium">
+            {(zoomLevel * 100).toFixed(0)}%
+          </span>
           <Button
             className="justify-center rounded-r-full size-7 px-5"
             variant="default"
@@ -140,7 +315,7 @@ export default function Documents() {
         </div>
       </div>
       <div
-        className="p-4 min-w-[50%] border-4 rounded border-dashed border-muted-foreground/10 text-black mx-auto flex flex-col h-[calc(43vw*1.414)]"
+        className="min-w-[50%] border-4 rounded border-dashed border-muted-foreground/10 text-black mx-auto flex flex-col h-full"
         ref={pdfRef}
         style={{
           transform: `scale(${zoomLevel})`,
@@ -198,13 +373,13 @@ export default function Documents() {
                 </TableRow>
               </TableHeader>
               <TableBody className="divide-muted-foreground/20">
-                {invoices.map((invoice) => (
+                {invoices.map((invoice, index) => (
                   <TableRow
                     className="border-muted-foreground/20"
                     key={invoice.invoice}
                   >
                     <TableCell className="font-medium pl-4">
-                      {invoice.invoice}
+                      {index + 1}
                     </TableCell>
                     <TableCell>{invoice.paymentStatus}</TableCell>
                     <TableCell>{invoice.paymentMethod}</TableCell>

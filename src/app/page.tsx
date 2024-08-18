@@ -8,5 +8,5 @@ export default function Home() {
     setIsOpened(!isOpened)
   }
 
-  return <main className="p-8">Home page</main>
+  return <main className="py-4 px-8">Home page</main>
 }

@@ -39,7 +39,30 @@ import {
 } from '@/components/ui/table'
 import { Select, SelectContent, SelectItem, SelectTrigger } from './ui/select'
 import { cn } from '@/lib/utils'
-import { DownloadIcon, PlusCircle } from 'lucide-react'
+import { CopyIcon, DownloadIcon, PlusCircle } from 'lucide-react'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from './ui/dialog'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { toast } from 'sonner'
 
 const data: Payment[] = [
   {
@@ -254,6 +277,10 @@ export function DataTableDemo() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
+  const [isOpenNotFoundItems, setIsOpenNotFoundItems] =
+    React.useState<boolean>(false)
+  const [isOpenUploadModal, setIsOpenUploadModal] =
+    React.useState<boolean>(false)
 
   const table = useReactTable({
     data,
@@ -273,6 +300,14 @@ export function DataTableDemo() {
       rowSelection,
     },
   })
+
+  const handleNewPromisse = async () => {
+    const response = await new Promise((resolve) => setTimeout(resolve, 1000))
+    toast.success('Promisse resolved')
+    setIsOpenNotFoundItems(!isOpenNotFoundItems)
+    setIsOpenUploadModal(!isOpenUploadModal)
+    return response
+  }
 
   return (
     <div className="w-full">
@@ -317,10 +352,53 @@ export function DataTableDemo() {
             <DownloadIcon className="h-4 w-4" />
             <span className="sr-only">Export</span>
           </Button>
-          <Button size="sm">
-            <PlusCircle className="h-4 w-4 mr-1" />
-            <span className="font-bold text-sm">Add new</span>
-          </Button>
+          <Dialog
+            open={isOpenUploadModal}
+            onOpenChange={() => setIsOpenUploadModal(!isOpenUploadModal)}
+          >
+            <DialogTrigger asChild>
+              <Button size="sm">
+                <PlusCircle className="h-4 w-4 mr-1" />
+                <span className="font-bold text-sm">Add new</span>
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>Share link</DialogTitle>
+                <DialogDescription>
+                  Anyone who has this link will be able to view this.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="flex items-center space-x-2">
+                <div className="grid flex-1 gap-2">
+                  <Label htmlFor="link" className="sr-only">
+                    Link
+                  </Label>
+                  <Input
+                    id="link"
+                    defaultValue="https://ui.shadcn.com/docs/installation"
+                    readOnly
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  size="sm"
+                  onClick={handleNewPromisse}
+                  className="px-3"
+                >
+                  <span className="sr-only">Copy</span>
+                  <CopyIcon className="h-4 w-4" />
+                </Button>
+              </div>
+              <DialogFooter className="sm:justify-start">
+                <DialogClose asChild>
+                  <Button type="button" variant="secondary">
+                    Close
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
       <div className="rounded-md border">
@@ -453,6 +531,26 @@ export function DataTableDemo() {
           </Button>
         </div>
       </div>
+
+      <AlertDialog
+        open={isOpenNotFoundItems}
+        onOpenChange={() => setIsOpenNotFoundItems(!isOpenNotFoundItems)}
+      >
+        {/* <AlertDialogTrigger>Open</AlertDialogTrigger> */}
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your
+              account and remove your data from our servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Continue</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }
