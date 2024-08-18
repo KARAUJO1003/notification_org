@@ -21,8 +21,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="transition-colors duration-700">
-      <body className={cn(['transition-colors duration-500'], inter.className)}>
+    <html lang="en" className="transition-colors duration-300">
+      <body className={cn([''], inter.className)}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
