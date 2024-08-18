@@ -281,18 +281,18 @@ export default function Documents() {
     <main className="flex flex-col min-h-screen py-4">
       <div className="flex w-3/5 h-auto z-10 border border-muted-foreground/20 self-center rounded-full fixed bottom-4 mx-auto backdrop-blur-md p-2 px-4">
         <Button
-          className="rounded-full mr-2"
+          className="rounded-l-full"
           onClick={handlePrintPDF}
-          variant="default"
+          variant="outline"
         >
-          Imprimir <Printer className="ml-2" />
+          <Printer className="mr-2 size-4" /> Imprimir
         </Button>
         <Button
-          className="rounded-full mr-2"
+          className="rounded-r-full"
           onClick={handleDownloadPDF}
-          variant="default"
+          variant="outline"
         >
-          Baixar PDF <Download className="ml-2" />
+          <Download className="mr-2 size-4" /> Baixar PDF
         </Button>
         <div className="ml-auto rounded-full flex items-center border p-1 bg-muted">
           <Button
